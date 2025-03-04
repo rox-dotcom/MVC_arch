@@ -5,12 +5,18 @@ class Usuario:
     def __init__(self, nombre, role):
         self.nombre = nombre
         self.role = role
+        self.signosVitales = []
         
     def show_info(self):
         print(f"Nombre: {self.nombre}, Role: {self.role}")
         
+    
+        
     def get_name(self):
         return self.nombre
+    
+    def get_signosVitales(self):
+        return self.signosVitales
         
 class Administrador(Usuario):
     
@@ -30,13 +36,13 @@ class Enfermera(Usuario):
     
     def __init__(self, nombre, role):
         super().__init__(nombre, role)
-        self.signosVitales = []
         
     def actualizarCita(self):
         print("Actualizando cita")
         
     def registrarSV(self, paciente):
         print("Registrando signos vitales de " + paciente.get_name())
+        paciente.signosVitales = ["Pulso: 80", "Temperatura: 36.5", "Presión: 120/80", self.get_name()]
         
     def asistirMedico(medico):
         print("Asistiendo al médico: " + medico)
@@ -99,6 +105,9 @@ class Paciente(Usuario):
     def verEstadoDeCita(self):
         print("Viendo estado de la cita de " + self.get_name())
         print(self.citasPaciente.estado)
+        
+    def show_SV(self):
+        print(f"Signos vitales de {self.nombre}: {", ".join(self.signosVitales)}")
         
 class Cita:
     
@@ -167,3 +176,14 @@ print("_"*30)
 paciente1.verEstadoDeCita()
 print("_"*30)
 print("\n"*3)
+
+print("REPORTAR SIGNOS VITALES")
+print("_"*30)
+enfermera1.registrarSV(paciente1)
+print("_"*30)
+print("\n"*3)
+
+print("MOSTRAR SIGNOS VITALES")
+print("_"*30)
+paciente1.show_SV()
+print("_"*30)
