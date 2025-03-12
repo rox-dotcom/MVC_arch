@@ -1,0 +1,13 @@
+# Ignorar archivos de credenciales y configuración local
+.env
+firebaseConfig.json
+
+# Archivos de caché y temporales de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Configuración de entornos virtuales
+venv/
+.env/
