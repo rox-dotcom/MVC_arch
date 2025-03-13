@@ -56,6 +56,7 @@ transform: translateY(4px);
 .text{
   color: #1D3557;
   align-items: center;
+  margin-bottom: 10px;
 
 }
 
@@ -68,4 +69,15 @@ transform: translateY(4px);
   width: 200px;
   height: 30px;
   border-radius: 5px;
+  margin-bottom: 20px;
+  border-color: #1D3557;
+}
+
+.image-format{
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+  margin-bottom: 5px;
+  background-color: #1D3557;
+  
 }
