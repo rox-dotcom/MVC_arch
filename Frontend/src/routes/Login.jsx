@@ -1,11 +1,10 @@
 import React  from 'react'
 import '../App.css'
-import Button from '../components/Button'
 import  Form  from '../components/Form'
 import logo from '../assets/img/medicinaLogo.png'
 
 
-function login() {
+function Login() {
   
 
   return (
@@ -15,8 +14,9 @@ function login() {
         <img src={logo} className='image-format'/>
         <h2 className='text'>Bienvenido a CheckMed</h2>
         <div >
-            <Form/>
+            <Form/> 
         </div>
+        
 
       </div>
   
@@ -25,4 +25,4 @@ function login() {
   )
 }
 
-export default login
+export default Login
