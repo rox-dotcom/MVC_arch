@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import '../Styles/viewPatient.css'
-import { getUser } from "../../backend_connection";
+import { getUser, agendarCita } from "../../backend_connection";
 
 function AppointForm(){
 
@@ -9,6 +9,8 @@ function AppointForm(){
         date: "",
         time: "",
         reason: "",
+        doctorEmail: "",
+        patientEmail: "",
       });
     
     const generateTimeSlots = (startHour, endHour, intervalMinutes) => {
@@ -29,13 +31,36 @@ function AppointForm(){
     setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formData.date && formData.time && formData.reason) {
-          setAppointments([...appointments, { id: appointments.length + 1, ...formData }]);
-          setFormData({ date: "", time: "", reason: "" });
+        if (!formData.date || !formData.time || !formData.reason || !formData.doctorEmail) {
+          alert("Please fill in all fields.");
+          return;
         }
-      };
+
+        const citaData = {
+          hora: formData.time,
+          estado: "pendiente", // Default status
+          correo_medico: formData.doctorEmail,
+          correo_paciente: formData.patientEmail, // Should be fetched dynamically from auth
+        };
+    
+        try {
+          const result = await agendarCita(citaData);
+          if (result) {
+            alert("Appointment scheduled successfully!");
+            setFormData({ date: "", time: "", reason: "", doctorEmail: "", patientEmail: "" });
+          } else {
+            alert("Failed to schedule appointment.");
+          }
+        } catch (error) {
+          console.error("Error scheduling appointment:", error.response?.data || error.message);
+          alert("Error connecting to the server.");
+        }
+      
+    
+  };
+
 
     return(
         <>

@@ -6,3 +6,8 @@ Para correr el Back
 Para correr el Front
     cd ./Frondend/
     npm run dev
+
+
+Integrantes:
+ Martin Rivera A01749620
+ Roxana Aranda A01613911
