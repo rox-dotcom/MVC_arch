@@ -85,6 +85,14 @@ function AppointForm(){
           <input type="text" name="reason" value={formData.reason} onChange={handleChange} required />
 
           <label>Choose your doctor: </label>
+          <select name="doctorEmail" value={formData.doctorEmail} onChange={handleChange} required>
+          <option value="">Select a doctor</option>
+          {doctors.map((doctor) => (
+            <option key={doctor.correo} value={doctor.correo}>
+              {doctor.nombre} ({doctor.correo})
+            </option>
+          ))}
+        </select>
 
 
           <button type="submit">Schedule</button>

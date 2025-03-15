@@ -29,6 +29,7 @@ export const getUser = async (correo) => {
       return null;
     }
   };
+
   
   // Update user data
   export const updateUser = async (correo, updatedData) => {

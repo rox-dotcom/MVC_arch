@@ -65,6 +65,14 @@ def agendar_cita():
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Faltan datos en la cita"}), 400
 
+#get docs
+@app.route('/users/doctors', methods=['GET'])
+def get_doctors():
+    doctors_ref = db.collection("usuarios").where("rol", "==", "medico", "||", "doctor").stream()
+    doctors = [{"correo": doc.id, **doc.to_dict()} for doc in doctors_ref]
+    return jsonify(doctors), 200
+
+
     # Extract data
     cita = Cita(hora=data["hora"], estado=data["estado"])
     correo_medico = data["correo_medico"]
@@ -76,7 +84,6 @@ def agendar_cita():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-
 
 
 if __name__ == '__main__':
