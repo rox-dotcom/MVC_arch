@@ -51,3 +51,18 @@ export const getUser = async (correo) => {
       return null;
     }
 };
+
+
+
+//Agendar cita
+export const agendarCita = async(citaUser) =>{
+  try {
+    const response = await axios.post(`${API_BASE_URL}/citas`);
+    return response.data;
+    
+  } catch (error) {
+    console.error("Error creating appointment:", error.response?.data || error.message);
+    return null;
+    
+  }
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import '../Styles/viewPatient.css'
+import { getUser } from "../../backend_connection";
 
 function AppointForm(){
 
@@ -57,6 +58,9 @@ function AppointForm(){
 
           <label>Reason:</label>
           <input type="text" name="reason" value={formData.reason} onChange={handleChange} required />
+
+          <label>Choose your doctor: </label>
+
 
           <button type="submit">Schedule</button>
         </form>

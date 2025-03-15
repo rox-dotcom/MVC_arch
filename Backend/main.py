@@ -2,11 +2,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dao.usuario_dao import UsuarioDAO
 from modelos.usuario import Usuario
+from modelos.cita import Cita
+from dao.cita_dao import CitaDAO
 
 app = Flask(__name__)
 CORS(app)
 
 usuario_dao = UsuarioDAO()
+cita_dao = CitaDAO()
 
 @app.route('/')
 def home():
@@ -52,6 +55,27 @@ def delete_user(correo):
     usuario_dao.eliminar_usuario(correo)
     return jsonify({"message": "Usuario eliminado correctamente"})
 
+#Agendar cita
+@app.route('/citas', methods=['POST'])
+def agendar_cita():
+    data = request.json
+
+    # Validate request data
+    required_fields = ["hora", "estado", "correo_medico", "correo_paciente"]
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Faltan datos en la cita"}), 400
+
+    # Extract data
+    cita = Cita(hora=data["hora"], estado=data["estado"])
+    correo_medico = data["correo_medico"]
+    correo_paciente = data["correo_paciente"]
+
+    try:
+        cita_dao.agregar_cita(cita, correo_medico, correo_paciente)
+        return jsonify({"message": "Cita agregada correctamente"}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 
 
 
